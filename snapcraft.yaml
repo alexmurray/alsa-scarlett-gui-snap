@@ -22,6 +22,7 @@ apps:
   alsa-scarlett-gui:
     command: usr/local/bin/alsa-scarlett-gui
     extensions: [gnome]
+    desktop: usr/local/share/applications/vu.b4.alsa-scarlett-gui.desktop
     plugs:
       - alsa
 
@@ -37,3 +38,8 @@ parts:
       - libasound2-plugins
 
 
+    override-prime: |
+      set -eu
+      craftctl default
+      # Fix-up application icon lookup
+      sed -i.bak -e 's|^Icon=.*|Icon=${SNAP}/usr/local/share/icons/hicolor/256x256/apps/alsa-scarlett-gui.png|' usr/local/share/applications/vu.b4.alsa-scarlett-gui.desktop
