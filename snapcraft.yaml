@@ -9,7 +9,7 @@ grade: stable
 confinement: strict
 
 slots:
-  dbus-service:
+  alsa-scarlett-gui:
     interface: dbus
     bus: session
     name: vu.b4.alsa-scarlett-gui
