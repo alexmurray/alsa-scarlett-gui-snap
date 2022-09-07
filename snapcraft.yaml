@@ -1,0 +1,39 @@
+name: alsa-scarlett-gui
+base: core22
+version: '0.2'
+summary: ALSA Scarlett Gen 2/3 Control Panel
+description: |
+  alsa-scarlett-gui is a Gtk4 GUI for the ALSA controls presented by the Linux
+  kernel Focusrite Scarlett Gen 2/3 Mixer Driver.
+grade: devel
+confinement: strict
+
+slots:
+  dbus-service:
+    interface: dbus
+    bus: session
+    name: vu.b4.alsa-scarlett-gui
+
+layout:
+  /usr/share/alsa:
+    bind: $SNAP/usr/share/alsa
+
+apps:
+  alsa-scarlett-gui:
+    command: usr/local/bin/alsa-scarlett-gui
+    extensions: [gnome]
+    plugs:
+      - alsa
+
+parts:
+  alsa-scarlett-gui:
+    plugin: make
+    source: https://github.com/geoffreybennett/alsa-scarlett-gui.git
+    source-subdir: src
+    build-packages:
+      - libasound2-dev
+    stage-packages:
+      - libasound2
+      - libasound2-plugins
+
+
