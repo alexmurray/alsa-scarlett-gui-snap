@@ -5,7 +5,7 @@ summary: ALSA Scarlett Gen 2/3 Control Panel
 description: |
   alsa-scarlett-gui is a Gtk4 GUI for the ALSA controls presented by the Linux
   kernel Focusrite Scarlett Gen 2/3 Mixer Driver.
-grade: devel
+grade: stable
 confinement: strict
 
 slots:
