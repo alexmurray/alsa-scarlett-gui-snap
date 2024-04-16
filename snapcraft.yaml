@@ -1,6 +1,6 @@
 name: alsa-scarlett-gui
 base: core22
-version: '0.2'
+version: '0.4.0'
 summary: ALSA Scarlett Gen 2/3 Control Panel
 description: |
   alsa-scarlett-gui is a Gtk4 GUI for the ALSA controls presented by the Linux
@@ -25,6 +25,15 @@ apps:
     desktop: usr/local/share/applications/vu.b4.alsa-scarlett-gui.desktop
     plugs:
       - alsa
+      - raw-usb
+    environment:
+      - SCARLETT2_FIRMWARE_DIR: $SNAP/usr/local/bin/firmware
+
+  scarlett2:
+    command: usr/local/bin/scarlett2
+    plugs:
+      - alsa
+      - raw-usb
 
 parts:
   alsa-scarlett-gui:
@@ -33,13 +42,28 @@ parts:
     source-subdir: src
     build-packages:
       - libasound2-dev
+      - libssl-dev
     stage-packages:
       - libasound2
       - libasound2-plugins
-
+      - libssl3
 
     override-prime: |
       set -eu
       craftctl default
       # Fix-up application icon lookup
       sed -i.bak -e 's|^Icon=.*|Icon=${SNAP}/usr/local/share/icons/hicolor/256x256/apps/alsa-scarlett-gui.png|' usr/local/share/applications/vu.b4.alsa-scarlett-gui.desktop
+
+  scarlett2:
+    plugin: make
+    source: https://github.com/geoffreybennett/scarlett2.git
+
+  scarlett2-firmware:
+    after: [scarlett2]
+    plugin: make
+    source: https://github.com/geoffreybennett/scarlett2-firmware.git
+    override-build: |
+      craftctl default
+      mkdir -p $SNAPCRAFT_PART_INSTALL/usr/local/bin/
+      mv $SNAPCRAFT_PART_INSTALL/usr/lib/firmware/scarlett2 $SNAPCRAFT_PART_INSTALL/usr/local/bin/firmware
+
