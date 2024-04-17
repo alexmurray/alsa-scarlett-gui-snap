@@ -52,7 +52,7 @@ parts:
       set -eu
       craftctl default
       # Fix-up application icon lookup
-      sed -i.bak -e 's|^Icon=.*|Icon=${SNAP}/usr/local/share/icons/hicolor/256x256/apps/alsa-scarlett-gui.png|' usr/local/share/applications/vu.b4.alsa-scarlett-gui.desktop
+      sed -i.bak -e 's|^Icon=.*|Icon=${SNAP}/usr/local/share/icons/hicolor/256x256/apps/vu.b4.alsa-scarlett-gui.png|' usr/local/share/applications/vu.b4.alsa-scarlett-gui.desktop
 
   scarlett2:
     plugin: make
