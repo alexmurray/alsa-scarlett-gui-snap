@@ -27,7 +27,7 @@ apps:
       - alsa
       - raw-usb
     environment:
-      - SCARLETT2_FIRMWARE_DIR: $SNAP/usr/local/bin/firmware
+      SCARLETT2_FIRMWARE_DIR: $SNAP/usr/local/bin/firmware
 
   scarlett2:
     command: usr/local/bin/scarlett2
